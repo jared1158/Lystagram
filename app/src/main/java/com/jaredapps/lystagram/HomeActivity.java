@@ -12,6 +12,8 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +61,32 @@ public class HomeActivity extends AppCompatActivity {
 
         return file;
     }
+    //add logout button to action bar
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.btnLogout) {
+            ParseUser.logOut();
+            final Intent logout  = new Intent(HomeActivity.this, MainActivity.class);
+            startActivity(logout);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +97,8 @@ public class HomeActivity extends AppCompatActivity {
         postsQuery
                 .getTop()
                 .withUser();
+
+
 
 
 
