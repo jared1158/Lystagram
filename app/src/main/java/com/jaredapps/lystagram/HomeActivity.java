@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -68,6 +69,30 @@ public class HomeActivity extends AppCompatActivity {
         postsQuery
                 .getTop()
                 .withUser();
+
+
+
+
+
+        final Button submit = findViewById(R.id.btnSubmit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageView newPic = (ImageView) findViewById(R.id.ivPreview);
+                Bitmap bm=((BitmapDrawable)newPic.getDrawable()).getBitmap();
+                EditText caption = (EditText) findViewById(R.id.etCaption);
+                //Save the status in Parse.com
+                Post post = new Post();//Create a new parse class
+                post.setDescription(caption.getText().toString());
+                try {
+                    post.setImage(new ParseFile(saveToFile(getApplicationContext(), bm)));//Creates a new attribute and adds value from newStatus
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                post.setUser(ParseUser.getCurrentUser());//Stores username in new parse class
+                post.saveInBackground();
+            }
+        });
 
 
 
@@ -153,19 +178,11 @@ public class HomeActivity extends AppCompatActivity {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
                 //declare inputted text
-                EditText caption = (EditText) findViewById(R.id.etCaption);
+
                 // Load the taken image into a preview
                 ImageView ivPreview = (ImageView) findViewById(R.id.ivPreview);
                 ivPreview.setImageBitmap(takenImage);
-                //Save the status in Parse.com
-                Post post = new Post();//Create a new parse class
-                post.setDescription(caption.getText().toString());
-                try {
-                    post.setImage(new ParseFile(saveToFile(getApplicationContext(), takenImage)));//Creates a new attribute and adds value from newStatus
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                post.setUser(ParseUser.getCurrentUser());//Stores username in new parse class
+
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
