@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Username"
-        android:inputType="textPersonName"
+        android:inputType="text"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="16dp" />
 
