@@ -44,6 +44,8 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
         //populate the views according to this data
         try {
             holder.tvName.setText(post.getUser().fetchIfNeeded().getUsername());
+            holder.tvCap.setText(post.getDescription());
+            holder.tvTime.setText(post.getCreatedAt().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -85,8 +87,8 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
 
         public ImageView ivPost;
         public TextView tvName;
-        public TextView tvBody;
-        public TextView tvRelativeDate;
+        public TextView tvCap;
+        public TextView tvTime;
         public TextView tvHandle;
 
         public ViewHolder(View itemView) {
@@ -96,8 +98,8 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
 
             ivPost = (ImageView) itemView.findViewById(R.id.ivPost);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
-            //tvBody = (TextView) itemView.findViewById(R.id.tvBody);
-            //tvRelativeDate = (TextView) itemView.findViewById(R.id.tvRelativeDate);
+            tvCap = (TextView) itemView.findViewById(R.id.tvCap);
+            tvTime = (TextView) itemView.findViewById(R.id.tvTime);
             //tvHandle = (TextView) itemView.findViewById(R.id.tvHandle);
             //itemView.setOnClickListener(this);
 

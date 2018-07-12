@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,6 +27,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final ParseUser neu_user = new ParseUser();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null){
+            final Intent I = new Intent(LoginActivity.this , CameraActivity.class);
+            startActivity(I);
+            finish();
+
+        }
+        else{
+
         setContentView(R.layout.activity_main);
 
         etUN = findViewById(R.id.etUN);
@@ -53,12 +64,14 @@ public class LoginActivity extends AppCompatActivity {
                 final String new_un = etSname.getText().toString();
                 final String new_pw = etPassword.getText().toString();
                 final String new_em = etEmail.getText().toString();
-
-                signup(new_un, new_pw, new_em);
+                neu_user.setUsername(new_un);
+                neu_user.setPassword(new_pw);
+                neu_user.setEmail(new_em);
+                signup(neu_user);
             }
         });
 
-    }
+    }}
 
 
     private void login(String username, String password){
@@ -77,21 +90,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void signup(String un, String pw, String em){
-        /*ParseUser.setUsername(un);
-        ParseUser.setPassword(pw);
-        ParseUser.setEmail(em);
-        ParseUser.signUpInBackground(new SignUpCallback() {
+
+    private void signup(ParseUser user){
+
+        user.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    // Hooray! Let them use the app now.
+                    Log.d("SignUpActivity" , "sign up successful");
+                    final Intent i = new Intent(LoginActivity.this , CameraActivity.class);
+                    startActivity(i);
+                    finish();
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
                 }
             }
-        });*/
+        });
     }
 
 
