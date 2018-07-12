@@ -12,11 +12,15 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText etUN;
     private EditText etPW;
     private Button btnLogin;
+    private Button btnSign;
+    private EditText etEmail;
+    private EditText etPassword;
+    private EditText etSname;
 
 
     @Override
@@ -27,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         etUN = findViewById(R.id.etUN);
         etPW = findViewById(R.id.etPW);
         btnLogin = findViewById(R.id.btnLogin);
+        btnSign = findViewById(R.id.btnSign);
+        etSname = findViewById(R.id.etSname);
+        etPassword = findViewById(R.id.etPassword);
+        etEmail = findViewById(R.id.etEmail);
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +46,18 @@ public class MainActivity extends AppCompatActivity {
                 login(username,password);
             }
         });
+
+        btnSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String new_un = etSname.getText().toString();
+                final String new_pw = etPassword.getText().toString();
+                final String new_em = etEmail.getText().toString();
+
+                signup(new_un, new_pw, new_em);
+            }
+        });
+
     }
 
 
@@ -47,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e == null){
                     Log.d("LoginActivity" , "login successful");
-                    final Intent i = new Intent(MainActivity.this , HomeActivity.class);
+                    final Intent i = new Intent(LoginActivity.this , CameraActivity.class);
                     startActivity(i);
                     finish();
                 }else {
@@ -57,4 +77,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void signup(String un, String pw, String em){
+        /*ParseUser.setUsername(un);
+        ParseUser.setPassword(pw);
+        ParseUser.setEmail(em);
+        ParseUser.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    // Hooray! Let them use the app now.
+                } else {
+                    // Sign up didn't succeed. Look at the ParseException
+                    // to figure out what went wrong
+                }
+            }
+        });*/
+    }
+
+
 }

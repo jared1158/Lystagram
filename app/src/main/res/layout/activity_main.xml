@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jaredapps.lystagram.MainActivity">
+    tools:context=".LoginActivity">
 
     <EditText
         android:id="@+id/etUN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="text"
@@ -22,9 +24,12 @@
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etUN"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="122dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/etUN"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="30dp"
         android:text="Log In"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="154dp" />
@@ -33,11 +38,58 @@
         android:id="@+id/etPW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/etUN"
-        android:layout_alignRight="@+id/etUN"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/etUN"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="18dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btnSign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnLogin"
+        android:layout_alignStart="@+id/btnLogin"
+        android:layout_below="@+id/etPW"
+        android:layout_marginTop="141dp"
+        android:text="Sign Up" />
+
+    <EditText
+        android:id="@+id/etSname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnSign"
+        android:layout_alignBottom="@+id/btnSign"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:hint="create new username"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/etSname"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="create new password"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/etPassword"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:hint="email address"
+        android:inputType="textPersonName" />
+
 </RelativeLayout>

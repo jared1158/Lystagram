@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,23 +26,26 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity {
 
     public final String APP_TAG = "MyCustomApp";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
     File photoFile;
-
-
-
-
+    ParseAdapter parseAdapter;
+    ArrayList<Post> posts;
+    RecyclerView rvParse;
 
 
     // Returns the File for a photo stored on disk given the fileName
@@ -76,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
 
         if (id == R.id.btnLogout) {
             ParseUser.logOut();
-            final Intent logout  = new Intent(HomeActivity.this, MainActivity.class);
+            final Intent logout  = new Intent(CameraActivity.this, LoginActivity.class);
             startActivity(logout);
             finish();
         }
@@ -92,16 +96,12 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        posts = new ArrayList<>();
 
         final Post.Query postsQuery = new Post.Query();
         postsQuery
                 .getTop()
                 .withUser();
-
-
-
-
-
 
 
         final Button submit = findViewById(R.id.btnSubmit);
@@ -112,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
                 Bitmap bm=((BitmapDrawable)newPic.getDrawable()).getBitmap();
                 EditText caption = (EditText) findViewById(R.id.etCaption);
                 //Save the status in Parse.com
-                Post post = new Post();//Create a new parse class
+                final Post post = new Post();//Create a new parse class
                 post.setDescription(caption.getText().toString());
                 try {
                     post.setImage(new ParseFile(saveToFile(getApplicationContext(), bm)));//Creates a new attribute and adds value from newStatus
@@ -120,13 +120,27 @@ public class HomeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 post.setUser(ParseUser.getCurrentUser());//Stores username in new parse class
-                post.saveInBackground();
+                post.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+
+
+                Intent x = new Intent(CameraActivity.this, FeedActivity.class);
+                x.putExtra("post" , Parcels.wrap(post));
+                startActivity(x);
+                    }
+                });
+
+
+                /*//notify adapter of new added post
+                posts.add(0, post);
+                parseAdapter.notifyItemInserted(0);
+                rvParse.scrollToPosition(0);
+                */
+                //send to feed and pull out files
+
             }
         });
-
-
-
-
 
 
         final Button pic = findViewById(R.id.btnPic);
@@ -142,7 +156,7 @@ public class HomeActivity extends AppCompatActivity {
 
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(HomeActivity.this,
+                Uri photoURI = FileProvider.getUriForFile(CameraActivity.this,
                         "com.codepath.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -178,6 +192,8 @@ public class HomeActivity extends AppCompatActivity {
 
         });
     }
+
+
 
 
     public static File saveToFile(Context context, Bitmap bitmap) throws IOException {
@@ -218,6 +234,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     }
+
+
 
 
 
