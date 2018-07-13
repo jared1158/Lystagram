@@ -12,6 +12,6 @@
         android:icon="@drawable/back"
         android:title=""
         app:showAsAction="always"
-        android:onClick="onBack"/>
+        />
 
 </menu>

@@ -60,26 +60,22 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
     }
 
 
-    //bind the values based on the position of the element
+    // Clean all elements of the recycler
+    public void clear() {
+        mPosts.clear();
+        notifyDataSetChanged();
+    }
 
-    /*
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
-        Post post = mPosts.get(position);
+    // Add a list of items -- change to type used
+    public void addAll(List<Post> list) {
+        mPosts.addAll(list);
+        notifyDataSetChanged();
+    }
 
-        //populate the views according to this data
-        try {
-            holder.tvName.setText(post.getUser().fetchIfNeeded().getUsername());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        //holder.tvCap.setText(tweet.body);
-        //holder.tvRelativeDate.setText(ParseRelativeDate.getRelativeTimeAgo(tweet.createdAt));
-        //holder.tvHandle.setText(tweet.user.screenName);
 
-        Glide.with(context).load(post.getImage().getUrl()).into(holder.ivPost);
-    }*/
+
+
+
 
     @Override
     public int getItemCount() {

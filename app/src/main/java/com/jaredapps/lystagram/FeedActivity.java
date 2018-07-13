@@ -2,6 +2,7 @@ package com.jaredapps.lystagram;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ public class FeedActivity extends AppCompatActivity {
     ParseAdapter parseAdapter;
     ArrayList<Post> posts;
     RecyclerView rvParse;
+    private SwipeRefreshLayout swipeContainer;
 
 
     @Override
@@ -31,6 +33,7 @@ public class FeedActivity extends AppCompatActivity {
         //find the recyclerView
         rvParse = findViewById(R.id.rvParse);
         //init the arraylist (datasource)
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         posts = new ArrayList<>();
         //construct the adapter from this datasource
         parseAdapter = new ParseAdapter(posts);
@@ -51,6 +54,27 @@ public class FeedActivity extends AppCompatActivity {
         //scroll back to top of timeline
         //rvTweets.scrollToPosition(0);
 
+
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                loadTop();
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
+
+
         loadTop();
 
         // Toast the name to display temporarily on screen
@@ -62,6 +86,8 @@ public class FeedActivity extends AppCompatActivity {
         postQuery.getTop().withUser().orderByDescending("createdAt");
 
         posts.clear();
+        parseAdapter.notifyDataSetChanged();
+        swipeContainer.setRefreshing(false);
         postQuery.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> objects, ParseException e) {

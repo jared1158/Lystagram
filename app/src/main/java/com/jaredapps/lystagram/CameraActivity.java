@@ -84,6 +84,10 @@ public class CameraActivity extends AppCompatActivity {
             startActivity(logout);
             finish();
         }
+        if (id == R.id.btnBack){
+            Intent b = new Intent(CameraActivity.this, FeedActivity.class);
+            startActivity(b);
+        }
         return super.onOptionsItemSelected(item);
     }
 
