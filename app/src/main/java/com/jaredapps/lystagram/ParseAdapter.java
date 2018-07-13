@@ -1,6 +1,7 @@
 package com.jaredapps.lystagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jaredapps.lystagram.model.Post;
 import com.parse.ParseException;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -83,7 +86,7 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
         return mPosts.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView ivPost;
         public TextView tvName;
@@ -101,13 +104,27 @@ public class ParseAdapter extends RecyclerView.Adapter<ParseAdapter.ViewHolder> 
             tvCap = (TextView) itemView.findViewById(R.id.tvCap);
             tvTime = (TextView) itemView.findViewById(R.id.tvTime);
             //tvHandle = (TextView) itemView.findViewById(R.id.tvHandle);
-            //itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 
         }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                Post post = mPosts.get(position);
+                // We can access the data within the views
+                Intent i = new Intent(context, DetailsActivity.class);
+                i.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+
+                //show activity
+                context.startActivity(i);
+
+            }
 
 
     }
 
 
 
-}
+}}

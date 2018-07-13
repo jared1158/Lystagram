@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jaredapps.lystagram.DetailsActivity">
+
+    <ImageView
+        android:id="@+id/ivExpand"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@mipmap/icon" />
+
+    <TextView
+        android:id="@+id/tvHandle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ivExpand"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:text="name" />
+
+    <TextView
+        android:id="@+id/tvAgo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvHandle"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:text="time ago" />
+
+    <TextView
+        android:id="@+id/tvDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/tvAgo"
+        android:layout_alignLeft="@+id/tvHandle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tvAgo"
+        android:layout_alignStart="@+id/tvHandle"
+        android:layout_below="@+id/tvHandle"
+        android:text="caption" />
+</RelativeLayout>
