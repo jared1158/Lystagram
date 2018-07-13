@@ -20,6 +20,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/ivPost"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
         android:text="time ago" />
 
     <TextView
@@ -29,15 +31,19 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ivPost"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
         android:text="name" />
 
     <TextView
         android:id="@+id/tvCap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/tvTime"
+        android:layout_alignLeft="@+id/tvName"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/tvTime"
+        android:layout_alignStart="@+id/tvName"
         android:layout_below="@+id/tvName"
         android:text="description" />
 </RelativeLayout>

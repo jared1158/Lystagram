@@ -8,10 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.jaredapps.lystagram.model.Post;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -48,10 +51,31 @@ public class FeedActivity extends AppCompatActivity {
         //scroll back to top of timeline
         //rvTweets.scrollToPosition(0);
 
-
+        loadTop();
 
         // Toast the name to display temporarily on screen
         Toast.makeText(this, "Item Posted Successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadTop() {
+        final Post.Query postQuery = new Post.Query();
+        postQuery.getTop().withUser().orderByDescending("createdAt");
+
+        posts.clear();
+        postQuery.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> objects, ParseException e) {
+                if(e == null){
+                    for (int i = 0; i < objects.size(); i++ ){
+                        Post post = objects.get(i);
+                        posts.add(post);
+                        parseAdapter.notifyItemInserted(0);
+                    }
+                }else{
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }
