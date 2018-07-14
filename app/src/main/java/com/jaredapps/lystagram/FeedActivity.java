@@ -6,11 +6,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.jaredapps.lystagram.model.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -24,6 +26,29 @@ public class FeedActivity extends AppCompatActivity {
     RecyclerView rvParse;
     private SwipeRefreshLayout swipeContainer;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.feed_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.btnLogout) {
+            ParseUser.logOut();
+            final Intent logout  = new Intent(FeedActivity.this, LoginActivity.class);
+            startActivity(logout);
+            finish();
+        }
+        if (id == R.id.btnNewPic){
+            Intent b = new Intent(FeedActivity.this, CameraActivity.class);
+            startActivity(b);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +89,7 @@ public class FeedActivity extends AppCompatActivity {
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
                 loadTop();
+
             }
         });
         // Configure the refreshing colors
@@ -78,7 +104,7 @@ public class FeedActivity extends AppCompatActivity {
         loadTop();
 
         // Toast the name to display temporarily on screen
-        Toast.makeText(this, "Item Posted Successfully", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Item Posted Successfully", Toast.LENGTH_SHORT).show();
     }
 
     private void loadTop() {

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="171dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="text"
@@ -26,6 +26,7 @@
         android:layout_alignEnd="@+id/etPW"
         android:layout_alignLeft="@+id/etPW"
         android:layout_alignRight="@+id/etPW"
+        android:textColor="#FFFFFF"
         android:layout_alignStart="@+id/etPW"
         android:layout_below="@+id/etPW"
         android:layout_marginTop="31dp"
@@ -47,50 +48,39 @@
         android:hint="Password"
         android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/btnSign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_above="@+id/etPW"
+        android:layout_alignLeft="@+id/etUN"
+        android:layout_alignStart="@+id/etUN"
+        android:layout_marginBottom="52dp"
+        app:srcCompat="@drawable/title_logo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="145dp"
+        android:layout_height="70dp"
         android:layout_alignLeft="@+id/btnLogin"
         android:layout_alignStart="@+id/btnLogin"
-        android:layout_below="@+id/etPW"
-        android:layout_marginTop="141dp"
-        android:text="Sign Up" />
+        android:layout_below="@+id/btnLogin"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="114dp"
+        android:text="Don't have an account? " />
 
-    <EditText
-        android:id="@+id/etSname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnSign"
-        android:layout_alignBottom="@+id/btnSign"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:ems="10"
-        android:hint="create new username"
-        android:inputType="textPersonName" />
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:background="@null"
+        android:text="Sign up."
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/etSname"
-        android:layout_marginTop="21dp"
-        android:ems="10"
-        android:hint="create new password"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/etPassword"
-        android:layout_marginTop="19dp"
-        android:ems="10"
-        android:hint="email address"
-        android:inputType="textPersonName" />
 
 </RelativeLayout>
